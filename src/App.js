@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-// import Title from "./components/Title/index";
+import Title from "./components/Title/index";
 // import GameBox from "./components/GameBox/index";
 import Building from "./components/Building/index";
 
@@ -9,9 +9,11 @@ function App() {
     // let income = 0;
     const buildings = [{ name: "Farm", owned: 0, cost: 100 }];
 
+    React.useEffect(() => {});
+
     return (
         <div className="App">
-            {/* <Title>Idle Farms</Title> */}
+            <Title>Idle Farms</Title>
             {/* <GameBox currentMoney={money} currentIncome={income} /> */}
             <Building
                 name={buildings[0].name}
