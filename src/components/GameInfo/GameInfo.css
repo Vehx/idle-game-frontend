@@ -1,0 +1,16 @@
+.GameInfo {
+    background-color: black;
+    border-radius: 20px;
+    margin: 10px;
+    padding-bottom: 15px;
+}
+
+.GameInfo__money {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.GameInfo__income {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
