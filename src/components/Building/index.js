@@ -1,7 +1,6 @@
 import React from "react";
 import "./Building.css";
-// import Title from "../Title/index";
-// import Button from "../Button/index";
+import Button from "../Button";
 
 // name owned cost
 function Building(props) {
@@ -14,6 +13,7 @@ function Building(props) {
             <p>
                 Next {props.name} cost: {props.cost}
             </p>
+            <Button disabled={props.disabled ? true : false}>Buy</Button>
         </div>
     );
 }

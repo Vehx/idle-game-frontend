@@ -1,0 +1,20 @@
+.Button {
+    min-width: 80px;
+    min-height: 20px;
+    border-radius: 20px;
+    background-color: greenyellow;
+    border: 0;
+    font-size: 14px;
+}
+
+.Button:hover {
+    background-color: rgb(123, 184, 32);
+}
+
+.disabled {
+    background-color: rgb(128, 128, 128);
+}
+
+.disabled:hover {
+    background-color: #808080a1;
+}

@@ -19,6 +19,7 @@ function App() {
                 name={buildings[0].name}
                 owned={buildings[0].owned}
                 cost={buildings[0].cost}
+                disabled={true}
             />
         </div>
     );
