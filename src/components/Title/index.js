@@ -2,7 +2,11 @@ import React from "react";
 import "./Title.css";
 
 function Title(props) {
-    return <h1 className="Title">{props.children}</h1>;
+    return (
+        <div className="Title">
+            <h1 className="Title-text">{props.children}</h1>
+        </div>
+    );
 }
 
 export default Title;
