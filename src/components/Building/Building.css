@@ -4,3 +4,13 @@
     margin: 10px;
     padding-bottom: 15px;
 }
+
+.Building__owned {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+.Building__cost {
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
