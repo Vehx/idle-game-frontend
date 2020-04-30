@@ -5,12 +5,13 @@ import GameInfo from "./components/GameInfo/index";
 import Building from "./components/Building/index";
 
 function App() {
+    // start values, change to speed up testing :)
+    const startMoney = 100;
+    const startIncome = 0;
+
     const [money, setMoney] = React.useState(100);
     const [income, setIncome] = React.useState(1);
     const [isFirstTime, setIsFirstTime] = React.useState(true);
-    // const buildings = [{ name: "Farm", owned: 0, cost: 100 }];
-    const startMoney = 100;
-    // let buildingElements = [];
     const [buildingElements, setBuildingElements] = React.useState([]);
     const [buildings, setBuildings] = React.useState([
         {
@@ -33,92 +34,28 @@ function App() {
         },
     ]);
 
-    // ("use strict");
-
-    // const money = document.querySelector(".game__info-money-value");
-    // const income = document.querySelector(".game__info-income-value");
-    // const farmsOwned = document.querySelector(".farms__owned-value");
-    // const farmsCost = document.querySelector(".farms__cost-value");
-    // const farmBuyBtn = document.querySelector(".farms__buy-btn");
-
-    // let moneyRealValue = 0;
-    // let incomeRealValue = 0;
-    // let farmsRealValue = 0;
-    // let farmRealCost = 100;
-    // const farmIncomeIncrease = 1;
-    // const gameDifficultyMultiplier = 1.1;
-    // let isFirstTime = true;
-
-    // const gameLoop = () => {
-    //     console.log("Real money: " + moneyRealValue);
-    //     console.log("Farm current cost: " + farmRealCost);
-    //     updateMoney((moneyRealValue += incomeRealValue));
-    //     if (moneyRealValue >= farmRealCost) {
-    //         setFarmBuyBtnActive();
-    //     } else {
-    //         setFarmBuyBtnDisabled();
-    //     }
-    // };
-
-    // functions to update value used in js and value shown in dom
-    // const updateMoney = (value) => {
-    // moneyRealValue = value;
-    // money.textContent = value;
-    //     setMoney(value);
-    // };
-
-    // const updateIncome = (value) => {
-    // incomeRealValue = value;
-    // income.textContent = value;
-    //     setIncome(value);
-    // };
-
-    // const updateFarms = (farmCount, farmCost) => {
-    //     farmsRealValue = farmCount;
-    // farmsOwned.textContent = farmCount;
-    // farmsCost.textContent = farmCost;
-    // };
-
-    // const setFarmBuyBtnActive = () => {
-    // if (!farmBuyBtn.classList.contains("active-buy-btn")) {
-    //     farmBuyBtn.classList.add("active-buy-btn");
-    //     farmBuyBtn.classList.remove("disabled-buy-btn");
-    //     farmBuyBtn.addEventListener("click", buyFarm);
-    // }
-    // };
-
-    // const setFarmBuyBtnDisabled = () => {
-    // if (!farmBuyBtn.classList.contains("disabled-buy-btn")) {
-    //     farmBuyBtn.classList.remove("active-buy-btn");
-    //     farmBuyBtn.classList.add("disabled-buy-btn");
-    //     farmBuyBtn.removeEventListener("click", buyFarm);
-    // }
-    // };
-
-    // const buyFarm = () => {
-    //     setFarmBuyBtnDisabled();
-    //     updateMoney(Math.round((moneyRealValue -= farmRealCost)));
-    //     updateIncome(Math.round((incomeRealValue += farmIncomeIncrease)));
-    //     farmRealCost = Math.round(farmRealCost * gameDifficultyMultiplier);
-    //     updateFarms((farmsRealValue += 1), farmRealCost);
-    // };
+    const buyBuilding = (id) => {
+        setBuildings(
+            [...buildings].map((building) => {
+                if (building.id === id) {
+                    setIncome(income + building.incomeIncrease);
+                    setMoney(money - building.cost);
+                    return {
+                        ...building,
+                        owned: (building.owned += 1),
+                        cost: Math.floor(building.cost * building.costIncrease),
+                        disabled: true,
+                    };
+                } else return building;
+            })
+        );
+    };
 
     const gameStart = () => {
         setMoney(startMoney);
-        setIncome(1);
+        setIncome(startIncome);
         setIsFirstTime(false);
     };
-
-    // for (let i = 0; i < buildings.length; i++) {
-    //     const building = buildings[i];
-
-    //     buildingElements.push(
-
-    // );
-    // console.log(buildingElements);
-    // }
-
-    // gameStart();
 
     // template for setBuildingElements to use when rendering buildings
     const buildingsRender = buildings.map((building, key) => (
@@ -130,28 +67,31 @@ function App() {
             incomeIncrease={building.incomeIncrease}
             costIncrease={building.costIncrease}
             disabled={building.disabled}
+            handleClick={() => {
+                buyBuilding(building.id);
+            }}
         />
     ));
 
     React.useEffect(() => {
         // sets start values for game on load
-        if (isFirstTime) {
-            console.log("Money: " + money + " Income: " + income);
-            console.log(buildings);
+        if (isFirstTime) gameStart();
 
-            gameStart();
-        }
-
+        // game loop, this is where the magic happens
         let gameInterval = setInterval(() => {
             // checks if player has enough money to buy building and activates button if player does
             setBuildings(
                 [...buildings].map((building) => {
-                    if (building.cost < money) {
+                    if (building.cost <= money) {
                         return {
                             ...building,
                             disabled: false,
                         };
-                    } else return building;
+                    } else
+                        return {
+                            ...building,
+                            disabled: true,
+                        };
                 })
             );
 
@@ -159,7 +99,7 @@ function App() {
             setMoney(money + income);
         }, 1000);
         return () => clearInterval(gameInterval);
-    }, [money]);
+    }, [money, income, buildings, buildingsRender, isFirstTime]);
 
     return (
         <div className="App">
