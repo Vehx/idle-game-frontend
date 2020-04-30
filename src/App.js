@@ -37,7 +37,7 @@ function App() {
     const buyBuilding = (id) => {
         setBuildings(
             [...buildings].map((building) => {
-                if (building.id === id) {
+                if (building.id === id && building.cost <= money) {
                     setIncome(income + building.incomeIncrease);
                     setMoney(money - building.cost);
                     return {
@@ -95,8 +95,8 @@ function App() {
                 })
             );
 
-            setBuildingElements(buildingsRender);
             setMoney(money + income);
+            setBuildingElements(buildingsRender);
         }, 1000);
         return () => clearInterval(gameInterval);
     }, [money, income, buildings, buildingsRender, isFirstTime]);
