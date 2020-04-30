@@ -106,6 +106,7 @@ function App() {
     const gameStart = () => {
         setMoney(startMoney);
         setIncome(1);
+        setIsFirstTime(false);
     };
 
     // for (let i = 0; i < buildings.length; i++) {
@@ -132,53 +133,29 @@ function App() {
 
     React.useEffect(() => {
         if (isFirstTime) {
-            // setMoney(startMoney);
             console.log("Money: " + money + " Income: " + income);
             console.log(buildings);
 
             gameStart();
-            setIsFirstTime(false);
-            // setBuildingElements(
-            //     (buildingElements = buildings.map((building, key) => (
-            //         <Building
-            //             key={building.id}
-            //             name={building.name}
-            //             owned={building.owned}
-            //             cost={building.cost}
-            //             incomeIncrease={building.incomeIncrease}
-            //             costIncrease={building.costIncrease}
-            //             disabled={building.disabled}
-            //         />
-            //     )))
-            // );
-            // setIsFirstTime(false);
-            // console.log(isFirstTime);
         }
 
-        let gameIntervalId = setInterval(() => {
-            // console.log(
-            //     "Money: " +
-            //         money +
-            //         " Income: " +
-            //         income +
-            //         " isFirstTime: " +
-            //         isFirstTime
-            // );
-            // console.log(isFirstTime);
-            for (let i = 0; i < buildings.length; i++) {
-                const building = buildings[i];
-                console.log(building);
-                if (building.cost < money) {
-                    // setBuildings(buildings[i].disabled.valueOf(false));
-                    // console.log(building);
-                    // console.log(buildingsRender);
-                    // setBuildings((building.disabled = false));
-                }
-            }
+        let gameInterval = setInterval(() => {
+            // checks if player has enough money to buy building and activates button if player does
+            setBuildings(
+                [...buildings].map((building) => {
+                    if (building.cost < money) {
+                        return {
+                            ...building,
+                            disabled: false,
+                        };
+                    } else return building;
+                })
+            );
+
             setBuildingElements(buildingsRender);
             setMoney(money + income);
         }, 1000);
-        return () => clearInterval(gameIntervalId);
+        return () => clearInterval(gameInterval);
     }, [money]);
 
     return (
