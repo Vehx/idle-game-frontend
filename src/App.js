@@ -119,7 +119,9 @@ function App() {
     // }
 
     // gameStart();
-    let buildingsRender = buildings.map((building, key) => (
+
+    // template for setBuildingElements to use when rendering buildings
+    const buildingsRender = buildings.map((building, key) => (
         <Building
             key={building.id}
             name={building.name}
@@ -132,6 +134,7 @@ function App() {
     ));
 
     React.useEffect(() => {
+        // sets start values for game on load
         if (isFirstTime) {
             console.log("Money: " + money + " Income: " + income);
             console.log(buildings);
