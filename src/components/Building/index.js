@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import "./Building.css";
 import Button from "../Button";
 
@@ -13,9 +14,28 @@ function Building(props) {
             <p className="Building__cost">
                 Next {props.name} cost: {props.cost}
             </p>
-            <Button disabled={props.disabled ? true : false}>Buy</Button>
+            <Button
+                disabled={props.disabled ? true : false}
+                handleClick={props.handleClick}
+            >
+                Buy
+            </Button>
         </div>
     );
 }
+
+Building.propTypes = {
+    name: PropTypes.string,
+    owned: PropTypes.number,
+    cost: PropTypes.number,
+    handleClick: PropTypes.func,
+    disabled: PropTypes.bool,
+};
+
+Building.defaultProps = {
+    name: "Building",
+    owned: 0,
+    cost: 0,
+};
 
 export default Building;

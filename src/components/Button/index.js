@@ -4,13 +4,17 @@ import "./Button.css";
 
 function Button(props) {
     return (
-        <button className={"Button" + (props.disabled ? " disabled" : "")}>
+        <button
+            className={"Button" + (props.disabled ? " disabled" : "")}
+            onClick={props.handleClick}
+        >
             {props.children}
         </button>
     );
 }
 
 Button.propTypes = {
+    handleClick: PropTypes.func,
     disabled: PropTypes.bool,
 };
 
