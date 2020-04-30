@@ -10,8 +10,8 @@ function App() {
     const [isFirstTime, setIsFirstTime] = React.useState(true);
     // const buildings = [{ name: "Farm", owned: 0, cost: 100 }];
     const startMoney = 100;
-    let buildingElements = [];
-    // const [buildingElements, setBuildingElements] = React.useState("react pls");
+    // let buildingElements = [];
+    const [buildingElements, setBuildingElements] = React.useState([]);
     const [buildings, setBuildings] = React.useState([
         {
             id: 0,
@@ -112,7 +112,13 @@ function App() {
     //     const building = buildings[i];
 
     //     buildingElements.push(
-    buildingElements = buildings.map((building, key) => (
+
+    // );
+    // console.log(buildingElements);
+    // }
+
+    // gameStart();
+    let buildingsRender = buildings.map((building, key) => (
         <Building
             key={building.id}
             name={building.name}
@@ -123,16 +129,14 @@ function App() {
             disabled={building.disabled}
         />
     ));
-    // );
-    // console.log(buildingElements);
-    // }
-
-    // gameStart();
 
     React.useEffect(() => {
         if (isFirstTime) {
             // setMoney(startMoney);
             console.log("Money: " + money + " Income: " + income);
+            console.log(buildings);
+
+            gameStart();
             setIsFirstTime(false);
             // setBuildingElements(
             //     (buildingElements = buildings.map((building, key) => (
@@ -150,13 +154,7 @@ function App() {
             // setIsFirstTime(false);
             // console.log(isFirstTime);
         }
-        // for (let i = 0; i < buildings.length; i++) {
-        //     const building = buildings[i];
-        //     console.log(building);
-        // if (building.cost < money) {
 
-        // }
-        // }
         let gameIntervalId = setInterval(() => {
             // console.log(
             //     "Money: " +
@@ -166,13 +164,19 @@ function App() {
             //         " isFirstTime: " +
             //         isFirstTime
             // );
-            // gameLoop();
             // console.log(isFirstTime);
-            // if (isFirstTime) setIsFirstTime(false);
-            if (isFirstTime) gameStart();
-
+            for (let i = 0; i < buildings.length; i++) {
+                const building = buildings[i];
+                console.log(building);
+                if (building.cost < money) {
+                    // setBuildings(buildings[i].disabled.valueOf(false));
+                    // console.log(building);
+                    // console.log(buildingsRender);
+                    // setBuildings((building.disabled = false));
+                }
+            }
+            setBuildingElements(buildingsRender);
             setMoney(money + income);
-            // setIncome(1);
         }, 1000);
         return () => clearInterval(gameIntervalId);
     }, [money]);
