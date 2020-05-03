@@ -7,7 +7,10 @@ import Button from "../Button";
 function Building(props) {
     return (
         <div className="Building">
-            <h1>{props.name}</h1>
+            <h1 className="Building__name">{props.name}</h1>
+            <p className="Building__income-increase">
+                Income increase: {props.incomeIncrease}
+            </p>
             <p className="Building__owned">
                 Owned {props.name}s: {props.owned}
             </p>
@@ -26,6 +29,7 @@ function Building(props) {
 
 Building.propTypes = {
     name: PropTypes.string,
+    incomeIncrease: PropTypes.number,
     owned: PropTypes.number,
     cost: PropTypes.number,
     handleClick: PropTypes.func,
@@ -34,6 +38,7 @@ Building.propTypes = {
 
 Building.defaultProps = {
     name: "Building",
+    incomeIncrease: 0,
     owned: 0,
     cost: 0,
 };
