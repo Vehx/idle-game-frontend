@@ -5,12 +5,22 @@
     padding-bottom: 15px;
 }
 
+.Building__name {
+    margin-top: 5%;
+    margin-bottom: 0;
+}
+
+.Building__income-increase {
+    margin-top: 6%;
+    margin-bottom: 0;
+}
+
 .Building__owned {
-    margin-top: 10px;
+    margin-top: 3%;
     margin-bottom: 0;
 }
 
 .Building__cost {
-    margin-top: 10px;
-    margin-bottom: 30px;
+    margin-top: 3%;
+    margin-bottom: 10%;
 }
